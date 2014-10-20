@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Weather App</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Oxygen:300,400,700|Exo+2:700,300italic,200,900italic,500italic,800,300,600italic,500,800italic,900,100italic,200italic,600,700italic,400,100,400italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/vendor/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/application.css" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row" id="WeatherApp">
+                <div class="col-xs-12 col-md-offset-2 col-md-4 main" id="main">
+                    <img src="/assets/img/cog.svg" class="menu-icon" alt="" />
+                    <img src="/assets/img/cross.svg" class="menu-icon" alt="" style="display:none;" />
+                    <div class="info content">
+                        <h2><span class="temperature">-</span> &deg;C</h2>
+                        <p><span class="temperature-low">-</span> - <span class="temperature-high">-</span> &deg;C</p>
+                        <h1 class="city">----------</h1>
+                        <p><span class="label">Longitude</span> <span class="longitude">-</span><br><span class="label">Latitude</span> <span class="latitude">-</span></p>
+                    </div>
+
+                    <div class="menu content" style="display : none;">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>City</th>
+                                    <th>Temperature <div class="arrow pull-right"></div></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4 blocks" id="blocks">
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-6 block weather-icon">
+                            <img src="" class="img-responsive" alt="" />
+                            <p>----------</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 block temperature-icon">
+                            <img src="" class="img-responsive" alt="" />
+                            <p>----------</p>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-6 block pressure">
+                            <h3><span>-</span> <small>hpa</small></h3>
+                            <p>Pressure</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 block humidity">
+                            <h3><span>-</span>%</h3>
+                            <p>Humidity</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="/vendor/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="/vendor/rainyday.min.js" charset="utf-8"></script>
+        <script src="/assets/js/application.js" charset="utf-8"></script>
+
+    </body>
+</html>
