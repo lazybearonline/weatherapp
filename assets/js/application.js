@@ -1,3 +1,54 @@
+/*********************************/
+/* Easing borrowed from jQueryUI */
+/*-------------------------------*/
+
+(function() {
+
+    var baseEasings = {};
+
+    $.each( [ "Quad", "Cubic", "Quart", "Quint", "Expo" ], function( i, name ) {
+        baseEasings[ name ] = function( p ) {
+            return Math.pow( p, i + 2 );
+        };
+    });
+
+    $.extend( baseEasings, {
+        Sine: function( p ) {
+            return 1 - Math.cos( p * Math.PI / 2 );
+        },
+        Circ: function( p ) {
+            return 1 - Math.sqrt( 1 - p * p );
+        },
+        Elastic: function( p ) {
+            return p === 0 || p === 1 ? p :
+                -Math.pow( 2, 8 * (p - 1) ) * Math.sin( ( (p - 1) * 80 - 7.5 ) * Math.PI / 15 );
+        },
+        Back: function( p ) {
+            return p * p * ( 3 * p - 2 );
+        },
+        Bounce: function( p ) {
+            var pow2,
+                bounce = 4;
+
+            while ( p < ( ( pow2 = Math.pow( 2, --bounce ) ) - 1 ) / 11 ) {}
+            return 1 / Math.pow( 4, 3 - bounce ) - 7.5625 * Math.pow( ( pow2 * 3 - 2 ) / 22 - p, 2 );
+        }
+    });
+
+    $.each( baseEasings, function( name, easeIn ) {
+        $.easing[ "easeIn" + name ] = easeIn;
+        $.easing[ "easeOut" + name ] = function( p ) {
+            return 1 - easeIn( 1 - p );
+        };
+        $.easing[ "easeInOut" + name ] = function( p ) {
+            return p < 0.5 ?
+                easeIn( p * 2 ) / 2 :
+                1 - easeIn( p * -2 + 2 ) / 2;
+        };
+    });
+
+})();
+
 (function( $, window, document, undefined ) {
 
     "use strict";
@@ -72,7 +123,10 @@
         },
 
         _populate : function() {
-            this._menu(true);
+            var self = this;
+            this._sort("asc", function() {
+                self._menu(true);
+            });
         },
 
         _menu : function (refresh) {
@@ -110,9 +164,10 @@
             });
 
             if (refresh) this._display(0);
+
         },
 
-        _sort : function (direction) {
+        _sort : function (direction, callback) {
 
             var data = [];
 
@@ -136,7 +191,8 @@
 
             $(".menu th div", this.node).addClass(this._sorted);
 
-            this._menu();
+            if (typeof callback === "function") callback();
+
         },
 
         _animate : function (from, to, callback) {
@@ -157,13 +213,18 @@
             var self = this;
 
             $(".menu-icon", this.node).on("click", function() {
-                $('.main .content', self.node).slideToggle();
+                $('.main .content', self.node).slideToggle({
+                    duration : 600,
+                    easing : "easeOutCirc"
+                });
                 $('.menu-icon', self.node).toggle();
             });
 
             $(".menu th:nth-child(2)", this.node).on("click", function() {
                 var sort = $(this).html().toLowerCase();
-                self._sort(self._sorted);
+                self._sort(self._sorted, function() {
+                    self._menu();
+                });
             });
 
         },
@@ -201,7 +262,7 @@
                     $(".humidity span", "#blocks").html(parseInt(i));
                 });
 
-                $("img", "#blocks").fadeIn(200);
+                $("img", "#blocks").fadeIn(400);
             });
 
             if (typeof callback === "function") callback();
@@ -216,6 +277,7 @@
 
         var app = document.getElementById("WeatherApp");
         $(app).data("weather", new WeatherApp(app));
+
     });
 
 }( jQuery, window, document, undefined ));
