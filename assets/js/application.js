@@ -59,7 +59,7 @@
 
                     for (var i = 0; i < self._cities.length; i++) {
                         self._cities[i] = data.list[i];
-                        self._cities[i].local = true;
+                        self._cities[i].timestamp = new Date().getTime();
                     }
 
                     self._populate();
