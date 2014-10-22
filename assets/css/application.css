@@ -4,7 +4,6 @@ html, body {
     font-size : 18px;
     color : #FFFFFF;
     background : #ecf0f1;
-    margin : 40px;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -34,6 +33,12 @@ h3 small {
     color : #FFFFFF;
     font-size : 12px;
     font-weight : 100;
+}
+
+@media (min-width: 768px) {
+    .container {
+        margin-top : 40px;
+    }
 }
 
 .main {
